@@ -172,11 +172,8 @@ const tmpSurveys = [
 
 
 export const ContextProvider = ({children}) => {
-    const [currentUser, setCurrentUser] = useState({
-        name: 'John Carlo Araman',
-        email: 'johncarloaraman30@gmail.com'
-    });
-    const [userToken, setUserToken] = useState(1233);
+    const [currentUser, setCurrentUser] = useState({});
+    const [userToken, setUserToken] = useState(null);
     const [surveys, setSurveys] = useState(tmpSurveys);
 
     return (
