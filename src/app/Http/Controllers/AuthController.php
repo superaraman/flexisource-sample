@@ -20,7 +20,7 @@ class AuthController extends Controller
             'password' => bcrypt($aData['password'])
         ]);
 
-        $sToken = $oUser->createToken('main')->plainTextToken();
+        $sToken = $oUser->createToken('main')->plainTextToken;
         return response([
             'user'  => $oUser,
             'token' => $sToken
@@ -41,7 +41,7 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $oUser **/
         $oUser = Auth::user();
-        $sToken = $oUser->createToken('main')->plainTextToken();
+        $sToken = $oUser->createToken('main')->plainTextToken;
         return response([
             'user'  => $oUser,
             'token' => $sToken

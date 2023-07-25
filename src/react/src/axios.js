@@ -6,9 +6,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use((config) => {
-    console.log(config);
-    const token = '123'; // TODO
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${localStorage.getItem('TOKEN')}`
     return config;
 }, (error) => {
     return Promise.reject(error);
@@ -18,11 +16,12 @@ axiosClient.interceptors.response.use(response => {
     return response;
 }, error => {
     if (error.response && error.response.status === 401) {
-        router.navigate('/login');
+        localStorage.removeItem('TOKEN')
+        window.location.reload();
+        // router.navigate('/login')
         return error;
-    }
-
-    throw error;
+      }
+      throw error;
 });
 
 export default axiosClient;

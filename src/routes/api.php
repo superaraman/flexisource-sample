@@ -20,11 +20,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/signup', function () {
+Route::post('/signup1', function () {
     return 1;
 });
 
-Route::post('/signup1', [AuthController::class, 'signUp']);
+Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
