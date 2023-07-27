@@ -24,9 +24,7 @@ export default function Login() {
             })
             .catch((error) => {
                 if (error.response) {
-                    const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
-                    console.log(finalErrors);
-                    setError({ __html: finalErrors.join('<br>') });
+                    setError({ __html: error.response.data.error });
                 }
                 console.error(error);
             });

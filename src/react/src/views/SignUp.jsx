@@ -41,13 +41,13 @@ export default function SignUp() {
 
     return (
         <div className="text-center">
-            <h2>Sign up for free</h2>
+            <div className="h3 mb-3 fw-normal">Sign up for free</div>
             {error.__html && (<div dangerouslySetInnerHTML={error}>
             </div>)}
 
             <div>
                 <form action="#" method="POST" onSubmit={onSubmit}>
-                    <div>
+                    <div >
                         <div>
                             <label htmlFor="full-name">Full Name</label>
                         </div>
