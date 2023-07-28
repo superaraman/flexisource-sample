@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PageComponent from "../components/PageComponent";
 import axiosClient from "../axios";
+import { Link } from 'react-router-dom';
+import { useStateContext } from '../contexts/ContextProvider';
+
+
 
 export default function Dashboard() {
+    const { currentUser } = useStateContext();
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
@@ -11,15 +16,39 @@ export default function Dashboard() {
         }).catch(error => console.log(error));
     }, []);
 
+    const handleDeleteButtonClick = (event) => {
+        event.preventDefault();
+        console.log('delete');
+    }
+
     return (
-        <PageComponent title="Articles" buttons="Add New Article">
+        <PageComponent title="Articles">
             {
                 articles.map((article) => (
-                    <div className="card mb-2" key={article.article_no}>
-                        <div className="card-body">
-                            <h5 className="card-title">{article.title}</h5>
-                            <p className="card-text text-truncate">{article.content}</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
+                    <div className="col-md-6" key={article.article_no}>
+                        <div className="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250">
+                            <div className="col p-4 d-flex flex-column">
+                                <h3 className="mb-0 text-truncate flex-grow-1">{article.title}</h3>
+                                <div className="mb-1 text-body-secondary">
+                                    {new Date(article.created_at).toLocaleDateString("en-US")}
+                                </div>
+                                <p className="card-text text-truncate">{article.content}</p>
+                                <div className="d-flex mr-auto">
+                                    <div>
+                                        <Link to={'/article/' + article.article_no} className="icon-link gap-1 icon-link-hover">
+                                            Continue reading
+                                        </Link>
+                                    </div>
+                                    {article.user_no === currentUser.user_no ?
+                                        <button
+                                            type="button"
+                                            className="btn btn-danger btn-sm ml-auto"
+                                            onClick={handleDeleteButtonClick}>
+                                            Delete
+                                        </button> : null
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))

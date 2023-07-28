@@ -4,7 +4,7 @@ const StateContext = createContext(null);
 
 
 export const ContextProvider = ({children}) => {
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState({ user_no: 2 });
     const [userToken, setUserToken] = useState();
 
     return (
