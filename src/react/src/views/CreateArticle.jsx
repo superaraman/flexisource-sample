@@ -3,13 +3,14 @@ import PageComponent from "../components/PageComponent";
 import axiosClient from "../axios";
 import { useNavigate } from 'react-router-dom';
 import { useStateContext } from '../contexts/ContextProvider';
+import BackButton from "../components/BackButton";
+
 
 export default function CreateArticle() {
     const { currentUser } = useStateContext();
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const navigateTo  = useNavigate();
-
 
     const handleSubmitArticle = () => {
         axiosClient.post(`/articles`, {
@@ -23,7 +24,7 @@ export default function CreateArticle() {
     };
 
     return (
-        <PageComponent title="Create Article">
+        <PageComponent title="Create Article" buttonComponent={BackButton}>
             <div className="col">
                 <div className="row mt-4">
                     <div className="card-body">

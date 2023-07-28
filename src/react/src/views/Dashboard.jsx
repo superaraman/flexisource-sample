@@ -3,6 +3,7 @@ import PageComponent from "../components/PageComponent";
 import axiosClient from "../axios";
 import { Link } from 'react-router-dom';
 import { useStateContext } from '../contexts/ContextProvider';
+import CreateArticleButton from "../components/CreateArticleButton";
 
 export default function Dashboard() {
     const { currentUser } = useStateContext();
@@ -35,7 +36,7 @@ export default function Dashboard() {
     }
 
     return (
-        <PageComponent title="Articles">
+        <PageComponent title="Articles" buttonComponent={CreateArticleButton}>
             {
                 articles.map((article) => (
                     <div className="col-md-6" key={article.article_no}>

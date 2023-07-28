@@ -3,6 +3,8 @@ import PageComponent from "../components/PageComponent";
 import axiosClient from "../axios";
 import { Link, useParams } from 'react-router-dom';
 import { useStateContext } from '../contexts/ContextProvider';
+import CreateArticleButton from "../components/CreateArticleButton";
+
 
 export default function Article() {
     const { currentUser } = useStateContext();
@@ -38,7 +40,7 @@ export default function Article() {
     };
 
     return (
-        <PageComponent title="Article Details">
+        <PageComponent title="Article Details" buttonComponent={CreateArticleButton}>
             <div className="col">
                 <div className="row g-0 b">
                     <div className="col d-flex flex-column">

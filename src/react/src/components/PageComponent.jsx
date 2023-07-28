@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-export default function PageComponent({ title, children }) {
+export default function PageComponent({
+        title,
+        buttonComponent: ButtonComponent,
+        children
+    }) {
     return (
         <div className="container">
             <div className="row">
@@ -11,9 +14,7 @@ export default function PageComponent({ title, children }) {
                             <h1 className="display-one">{title}</h1>
                         </div>
                         <div className="col-2">
-                            <Link to={"/articles/create"}>
-                                <button type="button" className="btn btn-success">Add new Article</button>
-                            </Link>
+                            <ButtonComponent/>
                         </div>
                     </div>
                     <div className="row">
