@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleCommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +41,7 @@ Route::get('/articles', [ArticleController::class, 'showAll']);
 Route::get('/articles/{iArticleID}', [ArticleController::class, 'show']);
 Route::post('/articles', [ArticleController::class, 'store']);
 Route::delete('/articles/{oArticle}', [ArticleController::class, 'destroy']);
+
+
+Route::post('/articles/comments', [ArticleCommentController::class, 'store']);
+

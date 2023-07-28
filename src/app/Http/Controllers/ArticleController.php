@@ -26,9 +26,10 @@ class ArticleController extends Controller
 
     public function show($iArticleNo)
     {
-        return Article::with(['comments', 'comments.user'])
-            ->where('article_no', $iArticleNo)
-            ->get()
+        return Article::with(['comments.user', 'comments' => function ($oQuery) {
+                $oQuery->orderBy('created_at', 'desc');
+            }])->where('article_no', $iArticleNo)
+            ->first()
             ->toArray();
     }
 

@@ -4,8 +4,6 @@ import axiosClient from "../axios";
 import { Link } from 'react-router-dom';
 import { useStateContext } from '../contexts/ContextProvider';
 
-
-
 export default function Dashboard() {
     const { currentUser } = useStateContext();
     const [articles, setArticles] = useState([]);
@@ -33,9 +31,9 @@ export default function Dashboard() {
                                     {new Date(article.created_at).toLocaleDateString("en-US")}
                                 </div>
                                 <p className="card-text text-truncate">{article.content}</p>
-                                <div className="d-flex mr-auto">
-                                    <div>
-                                        <Link to={'/article/' + article.article_no} className="icon-link gap-1 icon-link-hover">
+                                <div className="col d-flex mr-auto">
+                                    <div className="col">
+                                        <Link to={'/articles/' + article.article_no} className="icon-link gap-1 icon-link-hover">
                                             Continue reading
                                         </Link>
                                     </div>

@@ -5,6 +5,8 @@ import DefaultLayout from "./components/DefaultLayout";
 import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
+import Article from "./views/Article";
+
 
 
 const router = createBrowserRouter([
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Dashboard />
+            },
+            {
+                path: '/articles/:article_no',
+                element: <Article />
             },
         ]
     },

@@ -19,7 +19,7 @@ class ArticleComment extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content',
+        'user_no', 'article_no', 'content',
     ];
 
     public function user()
