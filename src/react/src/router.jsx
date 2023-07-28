@@ -6,6 +6,7 @@ import Dashboard from "./views/Dashboard";
 import Login from "./views/Login";
 import SignUp from "./views/SignUp";
 import Article from "./views/Article";
+import CreateArticle from "./views/CreateArticle";
 
 
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: '/articles/:article_no',
                 element: <Article />
+            },
+            {
+                path: '/articles/create',
+                element: <CreateArticle />
             },
         ]
     },

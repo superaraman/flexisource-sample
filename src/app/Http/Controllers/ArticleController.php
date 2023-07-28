@@ -9,7 +9,11 @@ class ArticleController extends Controller
 {
     public function store(Request $oRequest)
     {
-        //store a new post
+        return Article::create([
+            'user_no'   => $oRequest->get('user_no'),
+            'title'     => $oRequest->get('title'),
+            'content'   => $oRequest->get('content'),
+        ]);
     }
 
     public function showAll()

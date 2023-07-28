@@ -71,6 +71,7 @@ export default function Article() {
                             <input
                                 type="text"
                                 className="form-control flex-grow-1"
+                                placeholder="Input Comment"
                                 value={comment}
                                 onChange={(event) => setComment(event.target.value)}
                                 />

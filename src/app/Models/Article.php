@@ -20,7 +20,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content',
+        'title', 'content', 'user_no',
     ];
 
     public function user()
