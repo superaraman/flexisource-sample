@@ -9,14 +9,29 @@ export default function Dashboard() {
     const [articles, setArticles] = useState([]);
 
     useEffect(() => {
+        requestFetchArticles();
+    }, []);
+
+    const requestDeleteArticle = (article_no) => {
+        axiosClient.delete('/articles/' + article_no).then(response => {
+            alert('Successfully deleted article!');
+            requestFetchArticles();
+        }).catch(error => console.log(error));
+    };
+
+    const requestFetchArticles = () => {
         axiosClient.get('/articles').then(response => {
             setArticles(response.data);
         }).catch(error => console.log(error));
-    }, []);
+    };
 
     const handleDeleteButtonClick = (event) => {
-        event.preventDefault();
-        console.log('delete');
+        let article_no = event.target.value;
+        confirm('Are you sure you want to delete this article?', () => {
+            return;
+        });
+
+        requestDeleteArticle(article_no);
     }
 
     return (
@@ -41,6 +56,7 @@ export default function Dashboard() {
                                         <button
                                             type="button"
                                             className="btn btn-danger btn-sm ml-auto"
+                                            value={article.article_no}
                                             onClick={handleDeleteButtonClick}>
                                             Delete
                                         </button> : null

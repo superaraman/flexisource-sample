@@ -7,11 +7,6 @@ use App\Models\Article;
 
 class ArticleController extends Controller
 {
-    public function create()
-    {
-        //show form to create a blog post
-    }
-
     public function store(Request $oRequest)
     {
         //store a new post
@@ -22,7 +17,6 @@ class ArticleController extends Controller
         $oArticles = Article::all();
 	    return $oArticles;
     }
-
 
     public function show($iArticleNo)
     {
@@ -35,6 +29,6 @@ class ArticleController extends Controller
 
     public function destroy(Article $oArticle)
     {
-        //delete a post
+        return $oArticle->delete();
     }
 }
