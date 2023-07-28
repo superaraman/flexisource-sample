@@ -4,122 +4,113 @@ import { useNavigate } from "react-router-dom";
 import axiosClient from '../axios.js'
 
 export default function SignUp() {
-    const { setCurrentUser, setUserToken } = useStateContext();
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [passwordConfirmation, setPasswordConfirmation] = useState("");
-    const [error, setError] = useState({ __html: "" });
-    const navigate = useNavigate();
+    const navigateTo = useNavigate();
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+    });
 
-
-    const onSubmit = (ev) => {
+    const handleSubmit = (ev) => {
         ev.preventDefault();
-        setError({ __html: "" });
 
         axiosClient
             .post("/signup", {
-                name: fullName,
-                email,
-                password,
-                password_confirmation: passwordConfirmation,
+                name: formData.firstName + formData.lastName,
+                email: formData.email,
+                password: formData.password,
+                password_confirmation: formData.confirmPassword,
             })
             .then(({ data }) => {
+                console.log(data);
                 alert('Successfully Created an Account');
-                navigate('/login');
+                navigateTo('/login');
             })
             .catch((error) => {
                 if (error.response) {
                     const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
-                    console.log(finalErrors);
-                    setError({ __html: finalErrors.join('<br>') });
+                    alert(finalErrors);
                 }
                 console.error(error);
             });
     };
 
+    const handleChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
+    };
 
     return (
-        <div className="text-center">
-            <div className="h3 mb-3 fw-normal">Sign up for free</div>
-            {error.__html && (<div dangerouslySetInnerHTML={error}>
-            </div>)}
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <h1> SIGN UP </h1>
 
-            <div>
-                <form action="#" method="POST" onSubmit={onSubmit}>
-                    <div >
-                        <div>
-                            <label htmlFor="full-name">Full Name</label>
-                        </div>
-                        <div>
+                <div className="col-md-6">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="firstName">First Name</label>
                             <input
-                                id="full-name"
-                                name="name"
                                 type="text"
+                                className="form-control"
+                                id="firstName"
+                                name="firstName"
+                                value={formData.firstName}
+                                onChange={handleChange}
                                 required
-                                value={fullName}
-                                onChange={(event) => setFullName(event.target.value)}
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <label htmlFor="email">Email address</label>
-                        </div>
-                        <div>
+                        <div className="form-group">
+                            <label htmlFor="lastName">Last Name</label>
                             <input
+                                type="text"
+                                className="form-control"
+                                id="lastName"
+                                name="lastName"
+                                value={formData.lastName}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="email"
+                                className="form-control"
                                 id="email"
                                 name="email"
-                                type="email"
-                                autoComplete="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
-                                value={email}
-                                onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="password">Password</label>
-                        </div>
-                        <div>
                             <input
+                                type="password"
+                                className="form-control"
                                 id="password"
                                 name="password"
-                                type="password"
-                                autoComplete="current-password"
+                                value={formData.password}
+                                onChange={handleChange}
                                 required
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <label htmlFor="confirm-password">Confirm Password</label>
-                        </div>
-                        <div>
+                        <div className="form-group">
+                            <label htmlFor="confirmPassword">Confirm Password</label>
                             <input
-                                id="confirm-password"
-                                name="confirm-password"
                                 type="password"
-                                autoComplete="current-password"
+                                className="form-control"
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
                                 required
-                                value={passwordConfirmation}
-                                onChange={(event) => setPasswordConfirmation(event.target.value)}
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <button type="submit">
-                            Sign up
-                        </button>
-                    </div>
-                </form>
+                        <button type="submit" className="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
             </div>
         </div>
     )
