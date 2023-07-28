@@ -36,7 +36,7 @@ Route::get('/todos/{task_id}', [TodoController::class, 'show']);
 Route::put('/todos/{task_id}/update', [TodoController::class, 'update']);
 
 
-Route::get('/article', [ArticleController::class, 'showAll']);
-Route::get('/article/{iArticleID}', [ArticleController::class, 'show']);
-Route::post('/article', [ArticleController::class, 'store']);
-Route::delete('/article/{oArticle}', [ArticleController::class, 'destroy']);
+Route::get('/articles', [ArticleController::class, 'showAll']);
+Route::get('/articles/{iArticleID}', [ArticleController::class, 'show']);
+Route::post('/articles', [ArticleController::class, 'store']);
+Route::delete('/articles/{oArticle}', [ArticleController::class, 'destroy']);
