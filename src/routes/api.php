@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,11 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/todos', [TodoController::class, 'index']);
 Route::post('/todos', [TodoController::class, 'store']);
 Route::get('/todos/{task_id}', [TodoController::class, 'show']);
-Route::get('/todos/{task_id}/update', [TodoController::class, 'update']);
+Route::put('/todos/{task_id}/update', [TodoController::class, 'update']);
+
+
+Route::get('/test/index', [TestController::class, 'index']);
+Route::get('/test', [TestController::class, 'fetch']);
+Route::post('/test', [TestController::class, 'store']);
+Route::get('/test/{task_id}', [TestController::class, 'fetchById']);
+Route::put('/test/{task_id}', [TestController::class, 'update']);

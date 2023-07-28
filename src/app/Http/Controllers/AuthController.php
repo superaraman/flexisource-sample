@@ -47,14 +47,4 @@ class AuthController extends Controller
             'token' => $sToken
         ]);
     }
-
-    public function logout(Request $oRequest)
-    {
-        /** @var \App\Models\User $oUser **/
-        $oUser = Auth::user();
-
-        $oUser->currentAccessToken()->delete();
-
-        return response(['success' => true]);
-    }
 }
