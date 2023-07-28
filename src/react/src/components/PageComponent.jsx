@@ -1,10 +1,6 @@
 import React from 'react';
 
-export default function PageComponent({
-        title,
-        buttonComponent: ButtonComponent,
-        children
-    }) {
+export default function PageComponent({ title, buttonComponent: ButtonComponent, children }) {
     return (
         <div className="container">
             <div className="row">
@@ -14,7 +10,7 @@ export default function PageComponent({
                             <h1 className="display-one">{title}</h1>
                         </div>
                         <div className="col-2">
-                            <ButtonComponent/>
+                            <ButtonComponent />
                         </div>
                     </div>
                     <div className="row">

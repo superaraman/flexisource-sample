@@ -1,22 +1,23 @@
 import { useState } from 'react'
 import { useStateContext } from '../contexts/ContextProvider';
 import axiosClient from '../axios.js'
+import { Link } from 'react-router-dom';
+
 
 export default function Login() {
     const { setCurrentUser, setUserToken } = useStateContext();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState({ __html: "" });
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
 
-
-    const onSubmit = (ev) => {
-        ev.preventDefault();
-        setError({ __html: "" });
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
         axiosClient
             .post("/login", {
-                email,
-                password
+                email: formData.email,
+                password: formData.password
             })
             .then(({ data }) => {
                 setCurrentUser(data.user);
@@ -30,51 +31,47 @@ export default function Login() {
             });
     };
 
+    const handleChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
+    };
+
     return (
-        <div className="text-center">
-            <h2>Sign in to your account</h2>
-            {error.__html && (<div dangerouslySetInnerHTML={error}>
-            </div>)}
-
-
-            <div>
-                <form action="#" method="POST" onSubmit={onSubmit}>
-                    <div>
-                        <label htmlFor="email">Email address</label>
-                        <div>
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <h1> Sign In to your Account </h1>
+                <div className="col-md-6">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="email">Email</label>
                             <input
+                                type="email"
+                                className="form-control"
                                 id="email"
                                 name="email"
-                                type="email"
-                                autoComplete="email"
+                                value={formData.email}
+                                onChange={handleChange}
                                 required
-                                value={email}
-                                onChange={(event) => setEmail(event.target.value)}
                             />
                         </div>
-                    </div>
-
-                    <div>
-                        <div>
+                        <div className="form-group">
                             <label htmlFor="password">Password</label>
-                        </div>
-                        <div>
                             <input
+                                type="password"
+                                className="form-control"
                                 id="password"
                                 name="password"
-                                type="password"
-                                autoComplete="current-password"
+                                value={formData.password}
+                                onChange={handleChange}
                                 required
-                                value={password}
-                                onChange={(event) => setPassword(event.target.value)}
                             />
                         </div>
-                    </div>
+                        <button type="submit" className="btn btn-primary">Login</button>
 
-                    <div>
-                        <button type="submit">Sign in</button>
-                    </div>
-                </form>
+                        <div>
+                            <p>Don't have an account? <Link to="/sign-up">Sign Up</Link></p>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     )

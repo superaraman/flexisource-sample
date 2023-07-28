@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import PageComponent from "../components/PageComponent";
 import axiosClient from "../axios";
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useStateContext } from '../contexts/ContextProvider';
 import CreateArticleButton from "../components/CreateArticleButton";
 

@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { useStateContext } from '../contexts/ContextProvider';
 import { useNavigate } from "react-router-dom";
 import axiosClient from '../axios.js'
+import { Link } from 'react-router-dom';
+
 
 export default function SignUp() {
     const navigateTo = useNavigate();
@@ -18,7 +19,7 @@ export default function SignUp() {
 
         axiosClient
             .post("/signup", {
-                name: formData.firstName + formData.lastName,
+                name: formData.firstName + ' ' + formData.lastName,
                 email: formData.email,
                 password: formData.password,
                 password_confirmation: formData.confirmPassword,
@@ -109,6 +110,9 @@ export default function SignUp() {
                             />
                         </div>
                         <button type="submit" className="btn btn-primary">Sign Up</button>
+                        <div>
+                            <p>Already have an account? <Link to="/login">Login Here</Link></p>
+                        </div>
                     </form>
                 </div>
             </div>

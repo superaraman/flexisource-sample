@@ -6,9 +6,9 @@ import { useEffect } from "react";
 export default function GuestLayout() {
     const { userToken, setUserToken } = useStateContext();
 
-    // if (userToken) {
-    //     return <Navigate to='/' />;
-    // }
+    if (!userToken) {
+        return <Navigate to='/login' />;
+    }
 
     return (
         <div className="bg-white">

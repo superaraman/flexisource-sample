@@ -30,13 +30,6 @@ Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
-
-Route::get('/todos', [TodoController::class, 'index']);
-Route::post('/todos', [TodoController::class, 'store']);
-Route::get('/todos/{task_id}', [TodoController::class, 'show']);
-Route::put('/todos/{task_id}/update', [TodoController::class, 'update']);
-
-
 Route::get('/articles', [ArticleController::class, 'showAll']);
 Route::get('/articles/{iArticleID}', [ArticleController::class, 'show']);
 Route::post('/articles', [ArticleController::class, 'store']);
