@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTArticleCommentTable extends Migration
+class CreateArticlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateTArticleCommentTable extends Migration
      */
     public function up()
     {
-        Schema::create('t_article_comment', function (Blueprint $table) {
-            $table->id('comment_no');
+        Schema::create('articles', function (Blueprint $table) {
+            $table->id('article_no');
             $table->unsignedBigInteger('user_no');
-            $table->unsignedBigInteger('article_no');
+            $table->string('title');
             $table->text('content');
             $table->timestamps();
 
-            // Add foreign key constraints for user_no and article_no columns
+            // Add foreign key constraint for user_no column
             $table->foreign('user_no')->references('user_no')->on('users')->onDelete('cascade');
-            $table->foreign('article_no')->references('article_no')->on('t_article')->onDelete('cascade');
         });
     }
 
@@ -33,6 +32,6 @@ class CreateTArticleCommentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_article_comment');
+        Schema::dropIfExists('articles');
     }
 }
