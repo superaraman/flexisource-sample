@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TodoController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\ArticleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,8 +36,7 @@ Route::get('/todos/{task_id}', [TodoController::class, 'show']);
 Route::put('/todos/{task_id}/update', [TodoController::class, 'update']);
 
 
-Route::get('/test/index', [TestController::class, 'index']);
-Route::get('/test', [TestController::class, 'fetch']);
-Route::post('/test', [TestController::class, 'store']);
-Route::get('/test/{task_id}', [TestController::class, 'fetchById']);
-Route::put('/test/{task_id}', [TestController::class, 'update']);
+Route::get('/article', [ArticleController::class, 'showAll']);
+Route::get('/article/{iArticleID}', [ArticleController::class, 'show']);
+Route::post('/article', [ArticleController::class, 'store']);
+Route::delete('/article/{oArticle}', [ArticleController::class, 'destroy']);

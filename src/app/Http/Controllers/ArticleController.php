@@ -3,41 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
 
-class TestController extends Controller
+class ArticleController extends Controller
 {
-    public function index(Request $request)
+    public function create()
     {
-        // TODO: Code here
-        return [];
+        //show form to create a blog post
     }
 
-    public function fetch(Request $request)
+    public function store(Request $oRequest)
     {
-        // TODO: Code here
-
-
-        return [
-            'data' => [],
-            'meta' => [
-                'page_count' => 0
-            ]
-        ];
+        //store a new post
     }
 
-    public function fetchById(Request $request, $id)
+    public function showAll()
     {
-        // TODO: Code here
-        return ['id' => $id];
+        $oArticles = Article::all();
+	    return $oArticles;
     }
 
-    public function store(Request $request)
+
+    public function show($iArticleNo)
     {
-        // TODO: Code here
+        return Article::with(['comments', 'comments.user'])
+            ->where('article_no', $iArticleNo)
+            ->get()
+            ->toArray();
     }
 
-    public function update(Request $request, $id)
+    public function destroy(Article $oArticle)
     {
-        // TODO: Code here
+        //delete a post
     }
 }
