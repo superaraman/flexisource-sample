@@ -24,7 +24,7 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_no'   => 'required|integer|exists:user,user_no',
+            'user_no'   => 'required|integer|exists:users,user_no',
             'title'     => 'required|string',
             'content'   => 'required|string'
         ];
