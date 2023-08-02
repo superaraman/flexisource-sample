@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignUpRequest;
-use App\Http\Resources\UserResource;
 use App\Http\Resources\UserTokenResource;
 use App\Services\UserService;
 
@@ -44,7 +43,7 @@ class AuthController extends Controller
 
     /**
      * Logs in the user based on the credentials provided
-     * @param \App\Http\Requests\LoginRequest $oRequest
+     * @param LoginRequest $oRequest
      * @return UserTokenResource
      */
     public function login(LoginRequest $oRequest)

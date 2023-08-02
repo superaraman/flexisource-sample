@@ -22,7 +22,7 @@ export default function Dashboard() {
 
     const requestFetchArticles = () => {
         axiosClient.get('/articles').then(response => {
-            setArticles(response.data);
+            setArticles(response.data.data);
         }).catch(error => console.log(error));
     };
 

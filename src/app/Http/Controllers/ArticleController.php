@@ -2,37 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Resources\ArticleResource;
+use App\Services\ArticleService;
 
+/**
+ * Article Controller
+ * @author John Carlo Araman
+ * @copyright (c) 2023
+ */
 class ArticleController extends Controller
 {
-    public function store(Request $oRequest)
+    /**
+     * @var ArticleService $oArticleService
+     */
+    protected $oArticleService;
+
+    /**
+     * Constructor
+     * @param ArticleService $oArticleService
+     */
+    public function __construct(ArticleService $oArticleService)
     {
-        return Article::create([
-            'user_no'   => $oRequest->get('user_no'),
-            'title'     => $oRequest->get('title'),
-            'content'   => $oRequest->get('content'),
-        ]);
+        $this->oArticleService = $oArticleService;
     }
 
+    /**
+     * Store the article to the database
+     * @param StoreArticleRequest $oRequest
+     * @return ArticleResource
+     */
+    public function store(StoreArticleRequest $oRequest)
+    {
+        $aArticleData = $oRequest->validated();
+        $oArticle = $this->oArticleService->createArticle($aArticleData);
+	    return new ArticleResource($oArticle);
+    }
+
+    /**
+     * Show all the articles (without pagination, assuming the dataset is very small)
+     * Not recommended for very large scale of data
+     * For Test App Only
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function showAll()
     {
-        $oArticles = Article::all();
-	    return $oArticles;
+        $oArticles = $this->oArticleService->getAllArticles();
+	    return ArticleResource::collection($oArticles);
     }
 
-    public function show($iArticleNo)
+    /**
+     * Show Specific Article with Comments
+     * @param int $iArticleNo
+     * @return ArticleResource
+     */
+    public function show(int $iArticleNo)
     {
-        return Article::with(['comments.user', 'comments' => function ($oQuery) {
-                $oQuery->orderBy('created_at', 'desc');
-            }])->where('article_no', $iArticleNo)
-            ->first()
-            ->toArray();
+        $oArticle = $this->oArticleService->getArticleByID($iArticleNo);
+        return new ArticleResource($oArticle);
     }
 
-    public function destroy(Article $oArticle)
+    /**
+     * Delete a Specific Article
+     * @param int $iArticleNo
+     * @return mixed
+     */
+    public function destroy(int $iArticleNo)
     {
-        return $oArticle->delete();
+        return $this->oArticleService->deleteArticleByID($iArticleNo);
     }
 }
