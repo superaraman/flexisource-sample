@@ -2,10 +2,13 @@
 
 namespace App\Http\Requests;
 
+use App\Traits\APIFailedValidationTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArticleCommentRequest extends FormRequest
 {
+    use APIFailedValidationTrait;
+
     /**
      * Determine if the user is authorized to make this request.
      *

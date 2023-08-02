@@ -31,4 +31,4 @@ Route::get('/articles/{iArticleID}', [ArticleController::class, 'show']);
 Route::post('/articles', [ArticleController::class, 'store']);
 Route::delete('/articles/{iArticleID}', [ArticleController::class, 'destroy']);
 
-Route::post('/articles/comments', [ArticleCommentController::class, 'store']);
+Route::post('/articles/comments/test', [ArticleCommentController::class, 'store']);
