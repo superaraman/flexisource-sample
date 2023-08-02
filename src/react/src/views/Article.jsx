@@ -32,7 +32,7 @@ export default function Article() {
         axiosClient.post(`/articles/comments`, {
             article_no: routeParams.article_no,
             user_no: currentUser.user_no,
-            comment: comment
+            content: comment
         }).then(response => {
             setComment('');
             fetchCurrentArticle();

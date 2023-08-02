@@ -2,17 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\ArticleComment;
+use App\Http\Requests\StoreArticleCommentRequest;
+use App\Http\Resources\ArticleCommentResource;
+use App\Services\ArticleCommentService;
 
+/**
+ * Article Comment Controller
+ * @author John Carlo Araman
+ * @copyright (c) 2023
+ */
 class ArticleCommentController extends Controller
 {
-    public function store(Request $oRequest)
+    /**
+     * @var ArticleCommentService $oCommentService
+     */
+    protected $oCommentService;
+
+    /**
+     * Constructor
+     * @param ArticleCommentService $oCommentService
+     */
+    public function __construct(ArticleCommentService $oCommentService)
     {
-        return ArticleComment::create([
-            'article_no'    => $oRequest->get('article_no'),
-            'user_no'       => $oRequest->get('user_no'),
-            'content'       => $oRequest->get('comment'),
-        ]);
+        $this->oCommentService = $oCommentService;
+    }
+
+    /**
+     * Store the Article Comment to Database
+     * @param StoreArticleCommentRequest $oRequest
+     * @return ArticleCommentResource
+     */
+    public function store(StoreArticleCommentRequest $oRequest)
+    {
+        $aArticleCommentData = $oRequest->validated();
+        $oArticleComment = $this->oCommentService->createComment($aArticleCommentData);
+
+        return new ArticleCommentResource($oArticleComment);
     }
 }
