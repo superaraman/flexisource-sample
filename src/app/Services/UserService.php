@@ -35,7 +35,7 @@ class UserService
      */
     public function signUp(array $aUserData): array
     {
-        $oUser = $this->oUserRepository->createUser($aUserData);
+        $oUser = $this->oUserRepository->create($aUserData);
         $oToken = $oUser->createToken('main')->plainTextToken;
 
         return [
@@ -54,7 +54,7 @@ class UserService
         $remember = $aCredentials['remember'] ?? false;
         unset($aCredentials['remember']);
 
-        $oUser = $this->oUserRepository->findByEmailAddress($aCredentials['email']);
+        $oUser = $this->oUserRepository->getByEmailAddress($aCredentials['email']);
         if (!$oUser || !Auth::attempt($aCredentials, $remember)) {
             throw new InvalidCredentialsException();
         }

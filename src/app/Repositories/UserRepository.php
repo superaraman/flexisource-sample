@@ -17,7 +17,7 @@ class UserRepository
      * @param array $aData
      * @return \App\Models\User
      */
-    public function createUser(array $aData): User
+    public function create(array $aData): User
     {
         return User::create([
             'name'      => $aData['name'],
@@ -31,7 +31,7 @@ class UserRepository
      * @param string $aCredentials
      * @return mixed
      */
-    public function findByEmailAddress(string $sEmailAddress): ?User
+    public function getByEmailAddress(string $sEmailAddress): ?User
     {
         return User::where('email', $sEmailAddress)->first();
     }
