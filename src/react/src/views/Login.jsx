@@ -20,12 +20,13 @@ export default function Login() {
                 password: formData.password
             })
             .then(({ data }) => {
-                setCurrentUser(data.user);
-                setUserToken(data.token);
+                console.log(data);
+                setCurrentUser(data.data.user);
+                setUserToken(data.data.token);
             })
             .catch((error) => {
                 if (error.response) {
-                    setError({ __html: error.response.data.error });
+                    alert(error.response.data.message);
                 }
                 console.error(error);
             });

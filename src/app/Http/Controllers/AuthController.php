@@ -4,46 +4,54 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\SignUpRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserTokenResource;
+use App\Services\UserService;
 
+/**
+ * Controller for Users Authentication
+ * @author John Carlo Araman
+ * @copyright (c) 2023
+ */
 class AuthController extends Controller
 {
-    public function signUp(SignUpRequest $oRequest)
+    /**
+     * @var UserService $oUserService
+     */
+    private $oUserService;
+
+    /**
+     * Constructor
+     * @param UserService $oUserService
+     */
+    public function __construct(UserService $oUserService)
     {
-        $aData = $oRequest->validated();
-
-        $oUser = User::create([
-            'name' => $aData['name'],
-            'email' => $aData['email'],
-            'password' => bcrypt($aData['password'])
-        ]);
-
-        $sToken = $oUser->createToken('main')->plainTextToken;
-        return response([
-            'user'  => $oUser,
-            'token' => $sToken
-        ]);
+        $this->oUserService = $oUserService;
     }
 
+    /**
+     * Register the user based on the data provided
+     * @param SignUpRequest $oRequest
+     * @return UserTokenResource
+     */
+    public function signUp(SignUpRequest $oRequest)
+    {
+        $aUserData = $oRequest->validated();
+        $aResult = $this->oUserService->signUp($aUserData);
+
+        return new UserTokenResource($aResult);
+    }
+
+    /**
+     * Logs in the user based on the credentials provided
+     * @param \App\Http\Requests\LoginRequest $oRequest
+     * @return UserTokenResource
+     */
     public function login(LoginRequest $oRequest)
     {
         $aCredentials = $oRequest->validated();
-        $bRemember = $aCredentials['remember'] ?? false;
-        unset ($aCredentials['remember']);
+        $aResult = $this->oUserService->login($aCredentials);
 
-        if (!Auth::attempt($aCredentials, $bRemember)) {
-            return response([
-                'error' => 'The provided credentials are not correct'
-            ], 422);
-        }
-
-        /** @var \App\Models\User $oUser **/
-        $oUser = Auth::user();
-        return response([
-            'user'  => $oUser,
-            'token' => $oUser->createToken('main')->plainTextToken
-        ]);
+        return new UserTokenResource($aResult);
     }
 }

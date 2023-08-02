@@ -31,8 +31,7 @@ export default function SignUp() {
             })
             .catch((error) => {
                 if (error.response) {
-                    const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
-                    alert(finalErrors);
+                    alert(error.response.data.message);
                 }
                 console.error(error);
             });
